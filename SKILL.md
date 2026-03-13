@@ -1,0 +1,2 @@
+Do not create new root folders. All codebase modifications must remain inside the /src directory. All art assets must remain in /assets. Ask for permission before running any folder creation or moving commands.
+When committing code via the CLI, you must check if I provided an issue number. If I did, your commit message must include the phrase "Closes #[issue number]" to trigger the Kanban automation.

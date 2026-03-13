@@ -1,0 +1,39 @@
+Project: Yggdrasil (Tournament Companion)
+
+Architecture: Single-Binary / Event-Sourcing
+
+Status: Phase 1 (Foundation)
+
+1. Tidy Up & Migration
+
+[ ] Delete legacy folders from the root directory.
+
+[ ] Migrate relevant Istvaan III narrative campaign notes to /docs/.
+
+[ ] Move existing assets (maps/icons) to /assets/.
+
+2. Core Infrastructure (In Progress)
+
+[ ] Setup: Initialize .agents/rules/architecture.md (Constitution).
+
+[ ] Validation: Verify blank Xcode project compiles with zero warnings.
+
+[ ] Commit: Push initial "Constitution" and project structure to GitHub.
+
+3. Phase 1: The Event Core
+
+[ ] Task 1.1: Define EventCode.swift enum (The "Dictionary").
+
+[ ] Task 1.2: Implement EventBus.swift (The "Dispatcher").
+
+[ ] Task 1.3: Setup AuditLog.swift (The "Immutable Journal").
+
+[ ] Task 1.4: Build DashboardView.swift (The "Live Feed").
+
+4. GRC / Compliance Rules
+
+No destructive deletes in the event log.
+
+Every UI action must map to an EventCode.
+
+Use "Liquid Glass" SwiftUI styling.
