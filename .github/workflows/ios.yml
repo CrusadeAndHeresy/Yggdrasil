@@ -25,5 +25,5 @@ jobs:
           xcodebuild clean build \
             -project src/Yggdrasil/Yggdrasil.xcodeproj \
             -scheme Yggdrasil \
-            -destination 'platform=iOS Simulator,name=iPhone 15,OS=latest' \
+            -destination 'platform=iOS Simulator,name=iPhone 16,OS=latest' \
             CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO CODE_SIGNING_ALLOWED=NO
