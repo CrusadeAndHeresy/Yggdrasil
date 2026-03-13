@@ -4,25 +4,37 @@ struct ContentView: View {
     @EnvironmentObject var appState: AppState
     
     var body: some View {
+        // --- START OF TABVIEW CONTAINER ---
         TabView {
-            // Tab 1: The Dashboard (Live Status)
+            
+            // Tab 1: Dashboard
             DashboardView()
                 .tabItem {
                     Label("Dashboard", systemImage: "gauge.with.needle")
                 }
             
-            // Tab 2: The Controls (Inputs)
+            // Tab 2: Control Panel
+            // We wrap this in a NavigationView so it has a top title bar
             NavigationView {
                 ControlPanelView()
             }
             .tabItem {
                 Label("Controls", systemImage: "slider.horizontal.3")
             }
+            
+            // Tab 3: Audit Log
+            AuditLogView()
+                .tabItem {
+                    Label("Audit", systemImage: "list.bullet.clipboard")
+                }
+            
         }
+        // --- END OF TABVIEW CONTAINER ---
     }
 }
 
-/// [YGG] We moved the old Dashboard UI here to keep ContentView clean
+// MARK: - Dashboard Sub-View
+// We keep this in the same file for now to make it easy to manage
 struct DashboardView: View {
     @EnvironmentObject var appState: AppState
     
@@ -57,6 +69,7 @@ struct DashboardView: View {
     }
 }
 
+// MARK: - Preview
 #Preview {
     ContentView()
         .environmentObject(AppState.shared)
