@@ -1,7 +1,29 @@
 import SwiftUI
 
 struct ContentView: View {
-    // [YGG] Reading from the Single Source of Truth injected by YggdrasilApp
+    @EnvironmentObject var appState: AppState
+    
+    var body: some View {
+        TabView {
+            // Tab 1: The Dashboard (Live Status)
+            DashboardView()
+                .tabItem {
+                    Label("Dashboard", systemImage: "gauge.with.needle")
+                }
+            
+            // Tab 2: The Controls (Inputs)
+            NavigationView {
+                ControlPanelView()
+            }
+            .tabItem {
+                Label("Controls", systemImage: "slider.horizontal.3")
+            }
+        }
+    }
+}
+
+/// [YGG] We moved the old Dashboard UI here to keep ContentView clean
+struct DashboardView: View {
     @EnvironmentObject var appState: AppState
     
     var body: some View {
@@ -19,7 +41,6 @@ struct ContentView: View {
                 .font(.headline)
                 .padding(.top, 30)
             
-            // [YGG] Displaying real-time state dynamically
             if appState.isTournamentActive {
                 Text("Status: ACTIVE")
                     .foregroundColor(.green)
@@ -36,7 +57,6 @@ struct ContentView: View {
     }
 }
 
-// [YGG] This allows the Xcode Canvas to preview the UI without crashing
 #Preview {
     ContentView()
         .environmentObject(AppState.shared)
