@@ -1,33 +1,20 @@
-Project: Yggdrasil (Tournament Companion)
+# YGGDRASIL: Single-Binary Engine Plan
 
-Architecture: Single-Binary / Event-Sourcing
+## STATUS: PHASE 2 ACTIVE
 
-Status: Phase 1 (Foundation)
+[X] PHASE 1: FOUNDATION (Completed)
+- [X] #1 EventCode Enum
+- [X] #2 EventBus Actor (Thread-safe)
+- [X] #3 AppState (Single Source of Truth)
+- [X] #4 App Entry Point Wiring
+- [X] #5 Dashboard UI
+- [X] #6 CI/CD Pipeline
 
-1. Tidy Up & Migration
-
-[ ] Delete legacy folders from the root directory.
-
-[ ] Migrate relevant Istvaan III narrative campaign notes to /docs/.
-
-[ ] Move existing assets (maps/icons) to /assets/.
-
-2. Core Infrastructure (In Progress)
-
-[ ] Setup: Initialize .agents/rules/architecture.md (Constitution).
-
-[ ] Validation: Verify blank Xcode project compiles with zero warnings.
-
-[ ] Commit: Push initial "Constitution" and project structure to GitHub.
-
-3. Phase 1: The Event Core
-
-[ ] Task 1.1: Define EventCode.swift enum (The "Dictionary").
-
-[ ] Task 1.2: Implement EventBus.swift (The "Dispatcher").
-
-[ ] Task 1.3: Setup AuditLog.swift (The "Immutable Journal").
-
+[ ] PHASE 2: WIRING THE LOGIC (Current)
+- [ ] #7 Wire AppState to listen to EventBus
+- [ ] #8 Build Control Panel UI for Event Inputs
+- [ ] #9 Implement GRC Audit Log View
+- [ ] #10 Integrate Tab Navigation across Yggdrasil Views
 [ ] Task 1.4: Build DashboardView.swift (The "Live Feed").
 
 4. GRC / Compliance Rules

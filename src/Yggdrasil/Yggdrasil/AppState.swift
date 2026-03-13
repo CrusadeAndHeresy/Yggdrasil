@@ -1,23 +1,42 @@
 import Foundation
 import SwiftUI
 
-/// [YGG] The Single Source of Truth for the Yggdrasil UI.
-/// Locked to the MainActor to ensure the screen only updates on the main thread.
+/// [YGG] Single Source of Truth for the UI.
+/// MainActor-isolated to ensure all UI updates happen on the main thread.
 @MainActor
 class AppState: ObservableObject {
-    
-    // MARK: - Tournament Data
     @Published var isTournamentActive: Bool = false
     @Published var currentRound: Int = 0
     @Published var registeredPlayers: Int = 0
     
-    // Enforce single-binary architecture by creating exactly one instance.
     static let shared = AppState()
     
     private init() {
-        print("[YGG] AppState Initialized: Single Source of Truth active.")
+        // [YGG] Listen for engine broadcasts
+        NotificationCenter.default.addObserver(
+            forName: .yggEvent,
+            object: nil,
+            queue: .main
+        ) { notification in
+            // Swift 6 fix: Jump back onto the MainActor explicitly
+            Task { @MainActor in
+                if let event = notification.object as? EventCode {
+                    AppState.shared.processEvent(event)
+                }
+            }
+        }
     }
     
-    // Future Phase: We will add functions here to listen to the EventBus
-    // and mutate these variables based on the EventCodes it receives.
+    private func processEvent(_ event: EventCode) {
+        switch event {
+        case .tournamentStarted(_, _):
+            self.isTournamentActive = true
+            self.currentRound = 1
+        case .playerRegistered(_, _, _):
+            self.registeredPlayers += 1
+        default:
+            break
+        }
+    }
 }
+
