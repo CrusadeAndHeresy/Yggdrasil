@@ -27,15 +27,21 @@ class AppState: ObservableObject {
         }
     }
     
-    private func processEvent(_ event: EventCode) {
+    func processEvent(_ event: EventCode) {
         switch event {
-        case .tournamentStarted(_, _):
-            self.isTournamentActive = true
-            self.currentRound = 1
-        case .playerRegistered(_, _, _):
-            self.registeredPlayers += 1
-        default:
-            break
+        case .appLaunched:
+            print("[YGG] System Boot Confirmed.")
+            
+        case .eventCreated(let name, let date):
+            // For now, we just log the creation
+            print("[YGG] Muster Created: \(name) on \(date)")
+            
+        case .playerRegistered:
+            registeredPlayers += 1
+            
+        case .tournamentStarted:
+            isTournamentActive = true
+            currentRound = 1
         }
     }
 }

@@ -19,7 +19,7 @@ struct AuditLogView: View {
             .onAppear {
                 // Fetch the logs from the EventBus Actor
                 Task {
-                    logEntries = await EventBus.shared.getAuditLog()
+                    logEntries = await EventBus.shared.eventLog
                 }
             }
         }

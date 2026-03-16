@@ -9,7 +9,7 @@ struct YggdrasilApp: App {
         // [YGG] Fire the very first event into the system to prove the bus is alive.
         // We use a Task because the EventBus is an Actor (GRC thread-safety).
         Task {
-            await EventBus.shared.publish(.appLaunched(timestamp: Date()))
+            await EventBus.shared.publish(.appLaunched)
         }
     }
     

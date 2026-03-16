@@ -3,24 +3,17 @@ import Foundation
 /// [YGG] The core vocabulary of the engine.
 /// CustomStringConvertible is implemented explicitly to avoid recursion crashes.
 enum EventCode: CustomStringConvertible, Codable {
-    case appLaunched(timestamp: Date)
-    case tournamentStarted(name: String, date: Date)
-    case playerRegistered(id: UUID, name: String, faction: String)
-    case roundStarted(number: Int)
-    case matchResultRecorded(matchId: UUID, winnerId: UUID)
-
+    case appLaunched                          // System initialization
+    case eventCreated(name: String, date: Date) // The "Muster" begins
+    case playerRegistered(name: String)         // Legions signing up
+    case tournamentStarted(round: Int)          // The "First Shot" is fired
+    
     var description: String {
         switch self {
-        case .appLaunched(let date):
-            return "[YGG] App Launched at \(date)"
-        case .tournamentStarted(let name, let date):
-            return "[YGG] Tournament '\(name)' started on \(date)"
-        case .playerRegistered(_, let name, let faction):
-            return "[YGG] Player Registered: \(name) (\(faction))"
-        case .roundStarted(let number):
-            return "[YGG] Round \(number) Started"
-        case .matchResultRecorded(let matchId, _):
-            return "[YGG] Match Result Recorded for ID: \(matchId)"
+        case .appLaunched: return "[SYS] Yggdrasil Engine Initialized."
+        case .eventCreated(let name, _): return "[MUSTER] Event '\(name)' created."
+        case .playerRegistered(let name): return "[REG] \(name) has joined the muster."
+        case .tournamentStarted(let round): return "[START] Round \(round) is live."
         }
     }
 }
