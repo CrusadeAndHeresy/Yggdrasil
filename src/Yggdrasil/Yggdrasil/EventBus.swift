@@ -16,7 +16,9 @@ actor EventBus {
         eventLog.append(event)
         print(event.description)
         
-        // [YGG] Broadcast the event to the UI safely on the main thread
+        // [YGG] GRC Mandate: Persist immediately upon publication
+        StorageManager.shared.save(log: eventLog)
+        
         DispatchQueue.main.async {
             NotificationCenter.default.post(name: .yggEvent, object: event)
         }

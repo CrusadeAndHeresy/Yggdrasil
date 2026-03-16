@@ -2,7 +2,7 @@ import Foundation
 
 /// [YGG] The core vocabulary of the engine.
 /// CustomStringConvertible is implemented explicitly to avoid recursion crashes.
-enum EventCode: CustomStringConvertible {
+enum EventCode: CustomStringConvertible, Codable {
     case appLaunched(timestamp: Date)
     case tournamentStarted(name: String, date: Date)
     case playerRegistered(id: UUID, name: String, faction: String)

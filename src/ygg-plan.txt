@@ -1,26 +1,18 @@
 # YGGDRASIL: Single-Binary Engine Plan
+# Protocol: GRC-Compliant / Liquid Glass UI
 
-## STATUS: PHASE 2 ACTIVE
+## STATUS: PHASE 2 WASHUP (Structural Cleanup)
 
-[X] PHASE 1: FOUNDATION (Completed)
-- [X] #1 EventCode Enum
-- [X] #2 EventBus Actor (Thread-safe)
-- [X] #3 AppState (Single Source of Truth)
-- [X] #4 App Entry Point Wiring
-- [X] #5 Dashboard UI
-- [X] #6 CI/CD Pipeline
+## GRC / COMPLIANCE MANDATES
+1. NO DESTRUCTIVE DELETES: The EventLog is append-only.
+2. 1:1 MAPPING: Every UI action must map to an EventCode.
+3. LIQUID GLASS: UI must use ultraThinMaterial styling.
 
-[ ] PHASE 2: WIRING THE LOGIC (Current)
-- [ ] #7 Wire AppState to listen to EventBus
-- [ ] #8 Build Control Panel UI for Event Inputs
-- [ ] #9 Implement GRC Audit Log View
-- [ ] #10 Integrate Tab Navigation across Yggdrasil Views
-[ ] Task 1.4: Build DashboardView.swift (The "Live Feed").
+[X] PHASE 1: FOUNDATION
+[X] PHASE 2: WIRING THE LOGIC (Awaiting GitHub Sync)
 
-4. GRC / Compliance Rules
-
-No destructive deletes in the event log.
-
-Every UI action must map to an EventCode.
-
-Use "Liquid Glass" SwiftUI styling.
+[ ] PHASE 3: PERSISTENCE & RULES
+- [ ] #11 StorageManager (JSON Append-Only)
+- [ ] #12 Validation Engine
+- [ ] #13 Liquid Glass Overhaul
+- [ ] #14 Data Recovery
