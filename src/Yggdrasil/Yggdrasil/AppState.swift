@@ -2,7 +2,6 @@ import Foundation
 import SwiftUI
 
 /// [YGG] Single Source of Truth for the UI.
-/// MainActor-isolated to ensure all UI updates happen on the main thread.
 @MainActor
 class AppState: ObservableObject {
     @Published var isTournamentActive: Bool = false
@@ -12,19 +11,42 @@ class AppState: ObservableObject {
     static let shared = AppState()
     
     private init() {
-        // [YGG] Listen for engine broadcasts
+        // 1. Listen for SINGLE new events
         NotificationCenter.default.addObserver(
             forName: .yggEvent,
             object: nil,
             queue: .main
         ) { notification in
-            // Swift 6 fix: Jump back onto the MainActor explicitly
             Task { @MainActor in
                 if let event = notification.object as? EventCode {
-                    AppState.shared.processEvent(event)
+                    self.processEvent(event)
                 }
             }
         }
+        
+        // 2. Listen for FULL LOG recovery (Cold Boot)
+        NotificationCenter.default.addObserver(
+            forName: .yggRecoveryComplete,
+            object: nil,
+            queue: .main
+        ) { _ in
+            Task { @MainActor in
+                let history = await EventBus.shared.eventLog
+                self.rebuildState(from: history)
+            }
+        }
+    }
+    
+    /// [YGG] Resets and replays history to restore state
+    func rebuildState(from history: [EventCode]) {
+        self.registeredPlayers = 0
+        self.isTournamentActive = false
+        self.currentRound = 0
+        
+        for event in history {
+            self.processEvent(event)
+        }
+        print("[YGG] State Rebuilt: \(history.count) events processed.")
     }
     
     func processEvent(_ event: EventCode) {
@@ -33,7 +55,6 @@ class AppState: ObservableObject {
             print("[YGG] System Boot Confirmed.")
             
         case .eventCreated(let name, let date):
-            // For now, we just log the creation
             print("[YGG] Muster Created: \(name) on \(date)")
             
         case .playerRegistered:
@@ -45,4 +66,3 @@ class AppState: ObservableObject {
         }
     }
 }
-
